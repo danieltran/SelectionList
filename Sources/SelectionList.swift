@@ -55,7 +55,7 @@ import UIKit
     }
 
     /// the possible options to select
-    open var items: [String] = [] {
+    open var items: [(String, String)] = [] {
         didSet {
             deselectAll()
             tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
@@ -114,7 +114,7 @@ import UIKit
 
     open override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-        items = ["One", "Two", "Three"]
+        items = [("One", "subtitle"), ("Two", "subtitle"), ("Three", "subtitle")]
         selectedIndex = 2
     }
 
@@ -165,7 +165,8 @@ extension SelectionList: UITableViewDataSource, UITableViewDelegate {
             cell.deselectionImage = deselectionImage
             cell.isSelectionMarkTrailing = isSelectionMarkTrailing
         }
-        cell.textLabel?.text = items[indexPath.row]
+        cell.textLabel?.text = items[indexPath.row].0
+        cell.detailTextLabel?.text = items[indexPath.row].1
         setupCell?(cell, indexPath.row)
         return cell
     }
